@@ -2,7 +2,7 @@
    RESPONSIVE STYLES - Mobile First Approach
    ============================================================= */
 
-/* Tablet Screens (768px and above) */
+/* Tablet Screens (768px and below) */
 @media (max-width: 768px) {
   :root {
     --font-size-4xl: 1.875rem;
@@ -16,12 +16,75 @@
     padding: var(--spacing-sm) 0;
   }
 
+  .navbar-container {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: "brand toggle icons";
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-height: 48px;
+  }
+
+  .navbar-brand {
+    grid-area: brand;
+    font-size: var(--font-size-lg);
+    gap: var(--spacing-xs);
+    margin-left: 0;
+    padding-right: 0;
+    min-width: 0;
+  }
+
+  .navbar-brand span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .navbar-brand img {
+    height: 34px;
+    flex-shrink: 0;
+  }
+
+  .navbar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: toggle;
+  }
+
+  .navbar-icons {
+    grid-area: icons;
+    display: flex !important;
+    gap: var(--spacing-xs);
+    margin-left: 0;
+    margin-right: 0;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .navbar-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0;
+    background-color: var(--color-bg-light);
+    overflow: visible;
+  }
+
+  .navbar-icon img {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
   .navbar-nav {
     display: none;
     position: absolute;
-    top: 70px;
+    top: 100%;
     left: 0;
     right: 0;
+    transform: none;
     flex-direction: column;
     gap: 0;
     background-color: white;
@@ -33,7 +96,7 @@
 
   [dir="rtl"] .navbar-nav {
     flex-direction: column;
-    left: auto;
+    left: 0;
     right: 0;
   }
 
@@ -52,14 +115,6 @@
 
   .navbar-nav a::after {
     display: none;
-  }
-
-  .navbar-toggle {
-    display: block;
-  }
-
-  .navbar-icons {
-    gap: var(--spacing-lg);
   }
 
   /* Hero Section */
@@ -95,6 +150,40 @@
     gap: var(--spacing-lg);
   }
 
+  /* Smaller card action buttons & quantity counter */
+  .card-actions {
+    flex-direction: row;
+    gap: var(--spacing-xs);
+  }
+
+  .card-actions .btn {
+    flex: 1;
+    width: auto;
+    padding: 6px 8px;
+    font-size: 0.72rem;
+    min-height: 34px;
+    min-width: 0;
+  }
+
+  .quantity-counter {
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .qty-btn {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    font-size: var(--font-size-base);
+  }
+
+  .qty-input {
+    width: 36px;
+    font-size: var(--font-size-base);
+    padding: 0 var(--spacing-xs);
+  }
+
   /* Product Details */
   .product-details-container {
     grid-template-columns: 1fr;
@@ -105,10 +194,30 @@
     max-height: 400px;
   }
 
-  /* Categories Grid */
+  .product-actions .btn {
+    padding: var(--spacing-sm) var(--spacing-base);
+    font-size: var(--font-size-sm);
+    min-height: 38px;
+  }
+
+  /* Categories Grid - smaller buttons */
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-base);
+    gap: var(--spacing-sm);
+  }
+
+  .category-card {
+    padding: var(--spacing-base) var(--spacing-sm);
+  }
+
+  .category-card h3 {
+    font-size: var(--font-size-sm);
+    margin-bottom: 0;
+  }
+
+  .category-card-icon {
+    font-size: 24px;
+    margin-bottom: var(--spacing-xs);
   }
 
   /* Features Grid */
@@ -119,8 +228,23 @@
 
   /* Footer */
   .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-base);
+  }
+
+  /* About & Contact */
+  .about-contact-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
+  }
+
+  .contact-methods-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-base);
+  }
+
+  .page-content {
+    margin-top: 80px;
   }
 
   /* Controls */
@@ -203,30 +327,36 @@
 
   /* Navbar */
   .navbar {
-    padding: var(--spacing-sm) 0;
+    padding: var(--spacing-xs) 0;
   }
 
   .navbar-container {
     padding: 0 var(--spacing-sm);
+    gap: 6px;
   }
 
   .navbar-brand {
-    font-size: var(--font-size-lg);
-    gap: var(--spacing-sm);
+    font-size: var(--font-size-base);
   }
 
   .navbar-brand img {
-    height: 35px;
+    height: 30px;
   }
 
   .navbar-icons {
-    gap: var(--spacing-base);
+    gap: 4px;
   }
 
   .navbar-icon {
-    width: 35px;
-    height: 35px;
-    font-size: var(--font-size-base);
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+
+  .navbar-icon img {
+    width: 16px;
+    height: 16px;
   }
 
   /* Hero Section */
@@ -290,19 +420,38 @@
   }
 
   .card-body {
-    padding: var(--spacing-base);
+    padding: var(--spacing-sm);
   }
 
   .card-image {
-    height: 180px;
+    height: 160px;
   }
 
   .card-title {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
   }
 
   .card-price {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
+  }
+
+  .card-actions .btn {
+    padding: 5px 6px;
+    font-size: 0.65rem;
+    min-height: 30px;
+  }
+
+  .qty-btn {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+    font-size: var(--font-size-sm);
+  }
+
+  .qty-input {
+    width: 30px;
+    font-size: var(--font-size-sm);
   }
 
   /* Product Details */
@@ -330,16 +479,16 @@
 
   /* Categories Grid */
   .categories-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-sm);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-xs);
   }
 
   .category-card {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-xs);
   }
 
-  .category-card-icon {
-    font-size: 30px;
+  .category-card h3 {
+    font-size: 0.75rem;
   }
 
   /* Features Grid */
@@ -358,26 +507,27 @@
 
   /* Footer */
   .footer {
-    padding: var(--spacing-lg) 0 var(--spacing-base);
-    margin-top: var(--spacing-lg);
+    padding: var(--spacing-base) 0 var(--spacing-xs);
+    margin-top: var(--spacing-base);
   }
 
   .footer-content {
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-    padding: 0 var(--spacing-sm);
-    margin-bottom: var(--spacing-lg);
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
   }
 
   .footer-section h3 {
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xs);
   }
 
   .footer-bottom {
-    padding-top: var(--spacing-base);
+    padding-top: var(--spacing-xs);
     padding-left: var(--spacing-sm);
     padding-right: var(--spacing-sm);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
   }
 
   /* Floating WhatsApp Button */
@@ -408,21 +558,6 @@
 
   .btn-block {
     width: 100%;
-  }
-
-  /* Cards */
-  .card-actions {
-    flex-direction: column;
-    gap: var(--spacing-sm);
-  }
-
-  [dir="rtl"] .card-actions {
-    flex-direction: column;
-  }
-
-  .card-actions .btn {
-    width: 100%;
-    font-size: var(--font-size-sm);
   }
 
   /* Controls */
@@ -462,7 +597,7 @@
   .form-group textarea,
   .form-group select {
     padding: var(--spacing-sm);
-    font-size: var(--font-size-sm);
+    font-size: 16px;
   }
 
   .form-group textarea {
@@ -541,6 +676,10 @@
     padding: var(--spacing-sm) var(--spacing-base);
     font-size: var(--font-size-sm);
   }
+
+  .page-content {
+    margin-top: 70px;
+  }
 }
 
 /* Large Screens (1200px and above) */
@@ -609,7 +748,11 @@
   }
 
   .navbar-brand {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-sm);
+  }
+
+  .navbar-brand span {
+    max-width: 120px;
   }
 
   .hero-image {
@@ -619,19 +762,20 @@
 
   .btn {
     padding: var(--spacing-sm) var(--spacing-base);
-    min-height: 44px;
-    min-width: 44px;
+    min-height: 40px;
+  }
+
+  .card-actions .btn {
+    font-size: 0.6rem;
+    padding: 4px 5px;
   }
 }
 
-/* Touch-Friendly Optimization for All Mobile Devices */
+/* Touch-Friendly Optimization for Mobile Devices */
 @media (hover: none) and (pointer: coarse) {
-  /* Ensure all interactive elements are at least 44x44px for touch */
   .btn,
-  .navbar-icon,
   .navbar-toggle,
   button,
-  a,
   input[type="button"],
   input[type="submit"],
   select {
@@ -639,7 +783,23 @@
     min-width: 44px;
   }
 
-  /* Remove hover effects on touch devices and use active states instead */
+  .navbar-icon {
+    min-height: 32px;
+    min-width: 32px;
+    padding: 0;
+  }
+
+  .qty-btn {
+    min-height: 28px;
+    min-width: 28px;
+  }
+
+  .card-actions .btn {
+    min-height: 30px;
+    min-width: 0;
+    padding: 6px 8px;
+  }
+
   .btn:hover {
     transform: none;
   }
@@ -649,7 +809,6 @@
     transform: scale(0.98);
   }
 
-  /* Improve form input touch targets */
   input[type="text"],
   input[type="email"],
   input[type="search"],
@@ -657,11 +816,10 @@
   textarea,
   select {
     min-height: 44px;
-    font-size: 16px; /* Prevents iOS zoom on input focus */
+    font-size: 16px;
     padding: var(--spacing-sm) var(--spacing-base);
   }
 
-  /* Better spacing between form elements on mobile */
   .form-group {
     margin-bottom: var(--spacing-lg);
   }
@@ -671,7 +829,6 @@
     display: block;
   }
 
-  /* Improve card clickability */
   .card {
     cursor: pointer;
     transition: all 200ms ease-in-out;
@@ -682,7 +839,6 @@
     transform: scale(0.98);
   }
 
-  /* Improve search dropdown on touch */
   .search-dropdown-item {
     min-height: 48px;
     padding: var(--spacing-base) var(--spacing-lg);
@@ -691,10 +847,24 @@
   .navbar-nav a {
     padding: var(--spacing-base) 0;
     display: block;
+    min-height: auto;
+    min-width: auto;
+  }
+
+  .floating-whatsapp {
+    width: 54px;
+    height: 54px;
+    bottom: 16px;
+    right: 16px;
+  }
+
+  [dir="rtl"] .floating-whatsapp {
+    right: auto;
+    left: 16px;
   }
 }
 
-/* Improve responsiveness for landscape orientation */
+/* Landscape orientation */
 @media (max-height: 500px) and (orientation: landscape) {
   .navbar {
     padding: var(--spacing-xs) 0;
@@ -728,7 +898,7 @@
   }
 }
 
-/* Better image scaling for all screen sizes */
+/* Better image scaling for mobile */
 @media (max-width: 768px) {
   img {
     max-width: 100%;
@@ -740,11 +910,15 @@
   .product-main-image {
     object-fit: contain;
   }
+
+  .navbar-icon img {
+    max-width: none;
+    height: auto;
+  }
 }
 
-/* Text readability optimization */
+/* Text readability on small screens */
 @media (max-width: 480px) {
-  /* Ensure line height is comfortable on small screens */
   body {
     line-height: 1.7;
   }
@@ -759,7 +933,7 @@
   }
 }
 
-/* Optimize for reduced motion preference */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -770,52 +944,3 @@
     scroll-behavior: auto !important;
   }
 }
-
-/* Dark Mode Support (Optional - for future enhancement) */
-@media (prefers-color-scheme: dark) {
-  /* Uncomment to enable dark mode
-  :root {
-    --color-bg: #1F3A5F;
-    --color-bg-light: #2A4A75;
-    --color-text: #E8F1F9;
-    --color-text-light: #A8B8D0;
-  }
-  */
-}
-
-/* Reduced Motion Support */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Touch Device Optimization */
-@media (hover: none) and (pointer: coarse) {
-  .btn,
-  a,
-  .card {
-    padding: calc(var(--spacing-base) * 1.5);
-  }
-
-  .navbar-icon {
-    width: 50px;
-    height: 50px;
-  }
-
-  .floating-whatsapp {
-    width: 60px;
-    height: 60px;
-    bottom: 30px;
-    right: 20px;
-  }
-
-  [dir="rtl"] .floating-whatsapp {
-    right: auto;
-    left: 20px;
-  }
-}
-
-

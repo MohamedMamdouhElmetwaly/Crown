@@ -461,23 +461,96 @@ function createChatbotUI() {
 
       /* Mobile Responsive */
       @media (max-width: 768px) {
-        .dental-chatbot-window {
-          width: 100%;
-          height: 60vh;
-          max-height: 500px;
-          bottom: 0;
-          left: 0;
-          border-radius: 12px 12px 0 0;
-        }
-
         .dental-chatbot-widget {
-          bottom: 10px;
-          left: 10px;
+          bottom: 76px;
+          right: 12px;
+          left: auto;
         }
 
         html[dir="rtl"] .dental-chatbot-widget {
+          right: auto;
+          left: 12px;
+        }
+
+        .dental-chatbot-toggle {
+          width: 52px;
+          height: 52px;
+        }
+
+        .dental-chatbot-toggle img {
+          width: 28px !important;
+          height: 28px !important;
+        }
+
+        .dental-chatbot-window {
+          position: fixed;
+          width: calc(100vw - 16px);
+          max-width: 100%;
+          height: min(70vh, 520px);
+          bottom: 140px;
+          right: 8px;
+          left: 8px;
+          margin: 0 auto;
+          border-radius: 12px;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        html[dir="rtl"] .dental-chatbot-window {
+          right: 8px;
+          left: 8px;
+        }
+
+        .dental-chatbot-header h3 {
+          font-size: 14px;
+        }
+
+        .dental-chatbot-messages {
+          padding: 12px;
+        }
+
+        .dental-chatbot-message-content {
+          max-width: 85%;
+          font-size: 13px;
+        }
+
+        .dental-chatbot-input {
+          padding: 10px;
+        }
+
+        .dental-chatbot-input-field {
+          font-size: 16px;
+          padding: 10px 12px;
+        }
+
+        .dental-chatbot-suggestions {
+          padding: 6px 10px;
+          max-height: 80px;
+          overflow-y: auto;
+        }
+
+        .dental-chatbot-suggestion {
+          font-size: 11px;
+          padding: 5px 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .dental-chatbot-widget {
+          bottom: 70px;
           right: 10px;
-          left: auto;
+        }
+
+        .dental-chatbot-window {
+          width: calc(100vw - 12px);
+          height: min(75vh, 480px);
+          bottom: 130px;
+          right: 6px;
+          left: 6px;
+        }
+
+        .dental-chatbot-toggle {
+          width: 48px;
+          height: 48px;
         }
       }
     </style>

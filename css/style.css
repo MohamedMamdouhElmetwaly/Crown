@@ -258,6 +258,8 @@ a:hover {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-base);
+  position: relative;
+  min-height: 52px;
 }
 
 [dir="rtl"] .navbar-container {
@@ -267,12 +269,22 @@ a:hover {
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: var(--spacing-base);
+  gap: var(--spacing-sm);
   font-size: var(--font-size-2xl);
   font-weight: 900;
   color: var(--color-primary);
   font-family: 'Georgia', 'Times New Roman', serif;
   letter-spacing: 1px;
+  flex-shrink: 0;
+  margin-left: -6px;
+  padding-right: var(--spacing-base);
+}
+
+[dir="rtl"] .navbar-brand {
+  margin-left: 0;
+  margin-right: -6px;
+  padding-right: 0;
+  padding-left: var(--spacing-base);
 }
 
 .navbar-brand img {
@@ -283,10 +295,14 @@ a:hover {
 .navbar-nav {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--spacing-2xl);
   list-style: none;
   margin: 0;
   padding: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 [dir="rtl"] .navbar-nav {
@@ -328,21 +344,31 @@ a:hover {
   font-size: var(--font-size-xl);
   cursor: pointer;
   color: var(--color-text);
+  padding: var(--spacing-xs);
+  min-width: 40px;
+  min-height: 40px;
+  flex-shrink: 0;
 }
 
 .navbar-icons {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-sm);
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 [dir="rtl"] .navbar-icons {
+  margin-left: 0;
+  margin-right: auto;
   flex-direction: row-reverse;
 }
 
 .navbar-icon {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -351,11 +377,24 @@ a:hover {
   cursor: pointer;
   transition: all var(--transition-fast);
   font-size: var(--font-size-lg);
+  padding: 0;
+  text-decoration: none;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.navbar-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
 }
 
 .navbar-icon:hover {
   background-color: var(--color-primary);
   color: white;
+  transform: scale(1.05);
 }
 
 /* =============================================================
@@ -1111,24 +1150,31 @@ a:hover {
 .footer {
   background-color: var(--color-text);
   color: white;
-  padding: var(--spacing-3xl) 0 var(--spacing-base);
-  margin-top: var(--spacing-3xl);
+  padding: var(--spacing-lg) 0 var(--spacing-sm);
+  margin-top: var(--spacing-xl);
 }
 
 .footer-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-2xl);
-  margin-bottom: var(--spacing-2xl);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-base);
+  margin-bottom: var(--spacing-sm);
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  padding: var(--spacing-2xl) var(--spacing-base) 0;
+  padding: var(--spacing-base) var(--spacing-base) 0;
 }
 
 .footer-section h3 {
   color: white;
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-base);
+}
+
+.footer-section p {
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.5;
 }
 
 .footer-section ul {
@@ -1138,7 +1184,8 @@ a:hover {
 }
 
 .footer-section ul li {
-  margin-bottom: var(--spacing-base);
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
 }
 
 .footer-section a {
@@ -1162,13 +1209,38 @@ a:hover {
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: var(--spacing-lg);
+  padding-top: var(--spacing-sm);
+  padding-bottom: var(--spacing-xs);
   text-align: center;
   color: rgba(255, 255, 255, 0.7);
   max-width: 1200px;
   margin: 0 auto;
   padding-left: var(--spacing-base);
   padding-right: var(--spacing-base);
+  font-size: var(--font-size-sm);
+}
+
+.footer-bottom p {
+  margin-bottom: 0;
+}
+
+/* About & Contact page layouts */
+.about-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.contact-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.page-content {
+  margin-top: 100px;
 }
 
 /* =============================================================
