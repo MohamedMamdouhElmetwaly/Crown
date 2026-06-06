@@ -38,6 +38,7 @@ let currentLanguage = 'en';
 document.addEventListener('DOMContentLoaded', function() {
   initializeNavbar();
   initializeFloatingWhatsApp();
+  initializeLocationRouting();
   setActiveNavLink();
   initializeMobileMenu();
   initializeGeolocation();
@@ -148,39 +149,101 @@ function setActiveNavLink() {
    ============================================================= */
 
 function initializeGeolocation() {
-  // Check if geolocation is supported by the browser
-  if ('geolocation' in navigator && contactInfo.enableGeolocation) {
-    // Get user's location for delivery calculation and localization
+  if (!('geolocation' in navigator) || !contactInfo.enableGeolocation) return;
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      saveUserLocation(position.coords.latitude, position.coords.longitude);
+    },
+    function() {
+      // Permission denied or unavailable — routing still works via Google Maps
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 12000,
+      maximumAge: 300000
+    }
+  );
+}
+
+function saveUserLocation(latitude, longitude) {
+  sessionStorage.setItem('userLatitude', latitude);
+  sessionStorage.setItem('userLongitude', longitude);
+}
+
+function getStoreCoordinates() {
+  return {
+    latitude: contactInfo.latitude || 31.052986,
+    longitude: contactInfo.longitude || 31.404959
+  };
+}
+
+function buildDirectionsUrl(originLat, originLng) {
+  const store = getStoreCoordinates();
+  const destination = `${store.latitude},${store.longitude}`;
+  const storeLabel = encodeURIComponent(contactInfo.storeName || 'Crown Dental Store');
+
+  let url = `https://www.google.com/maps/dir/?api=1&destination=${destination}&destination_place_id=&travelmode=driving`;
+
+  if (originLat != null && originLng != null) {
+    url += `&origin=${originLat},${originLng}`;
+  }
+
+  return url;
+}
+
+function openDirectionsToStore(event) {
+  if (event) event.preventDefault();
+
+  const userLoc = getUserLocation();
+  if (userLoc) {
+    window.open(buildDirectionsUrl(userLoc.latitude, userLoc.longitude), '_blank', 'noopener');
+    return;
+  }
+
+  if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(
       function(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        
-        // Store location in sessionStorage for use throughout the session
-        sessionStorage.setItem('userLatitude', latitude);
-        sessionStorage.setItem('userLongitude', longitude);
-        
-        // Log location for debugging (remove in production)
-        console.log('User location detected:', {lat: latitude, lng: longitude});
-        
-        // You can use this for:
-        // 1. Calculating shipping costs
-        // 2. Showing nearby store locations
-        // 3. Personalizing content based on location
+        saveUserLocation(position.coords.latitude, position.coords.longitude);
+        window.open(
+          buildDirectionsUrl(position.coords.latitude, position.coords.longitude),
+          '_blank',
+          'noopener'
+        );
       },
-      function(error) {
-        // Handle geolocation errors silently (user may have denied permission)
-        console.log('Geolocation error:', error.message);
-        // Don't show error to user - geolocation is optional
+      function() {
+        window.open(buildDirectionsUrl(), '_blank', 'noopener');
       },
-      {
-        // Options for geolocation
-        enableHighAccuracy: false,
-        timeout: 10000,
-        maximumAge: 3600000 // Cache location for 1 hour
-      }
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     );
+  } else {
+    window.open(buildDirectionsUrl(), '_blank', 'noopener');
   }
+}
+
+function initializeLocationRouting() {
+  document.querySelectorAll('[data-get-directions]').forEach(function(el) {
+    el.addEventListener('click', openDirectionsToStore);
+  });
+
+  if (!document.getElementById('floating-directions-btn')) {
+    const btn = document.createElement('button');
+    btn.id = 'floating-directions-btn';
+    btn.className = 'floating-directions';
+    btn.type = 'button';
+    btn.title = 'Get directions to Crown Dental Store';
+    btn.setAttribute('aria-label', 'Get directions to store');
+    btn.innerHTML = '📍';
+    btn.addEventListener('click', openDirectionsToStore);
+    document.body.appendChild(btn);
+  }
+
+  document.querySelectorAll('[data-store-map]').forEach(function(el) {
+    const store = getStoreCoordinates();
+    el.href = contactInfo.googleMapsUrl || `https://maps.google.com/?q=${store.latitude},${store.longitude}`;
+    el.target = '_blank';
+    el.rel = 'noopener noreferrer';
+  });
 }
 
 // Function to get user location from storage
@@ -223,16 +286,6 @@ function estimateDeliveryTime(governorate) {
    ============================================================= */
 
 function initializeFloatingWhatsApp() {
-  const whatsappBtn = document.getElementById('floating-whatsapp-btn');
-
-  if (!whatsappBtn) return;
-
-  whatsappBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    openWhatsApp();
-  });
-
-  // Create floating button if it doesn't exist
   if (!document.getElementById('floating-whatsapp-btn')) {
     createFloatingWhatsAppButton();
   }
@@ -599,6 +652,8 @@ if (typeof module !== 'undefined' && module.exports) {
     createProductCard,
     contactViaWhatsApp,
     openWhatsApp,
+    openDirectionsToStore,
+    getUserLocation,
     showNotification,
     saveToStorage,
     getFromStorage,

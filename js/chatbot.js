@@ -305,7 +305,7 @@ function buildCategoryResponse() {
 
 function buildContactResponse() {
   const c = getStoreContact();
-  return `Contact Crown Dental Store:\n\n📞 Phone: ${c.phone}\n💬 WhatsApp: ${c.whatsapp}\n✉️ Email: ${c.email}\n📍 Location: ${c.address || 'Mansoura, Egypt'}\n\nVisit About & Contact for our form, map, and FAQ.`;
+  return `Contact Crown Dental Store:\n\n📞 Phone: ${c.phone}\n💬 WhatsApp: ${c.whatsapp}\n✉️ Email: ${c.email}\n📍 Location: ${c.address || 'Mansoura, Egypt'}\n\n🗺️ Tap the 📍 button (bottom of screen) for turn-by-turn directions from your current location.\n\nVisit About & Contact for our form, map, and FAQ.`;
 }
 
 function buildProductDetailResponse(product) {
@@ -847,6 +847,11 @@ function getAnswerFromKnowledgeBase(question) {
   // Help / what can you do
   if (/\b(what can you|help me|what do you do|capabilities|assist)\b/.test(q)) {
     return "I'm Crown Dental's AI expert assistant. I can help with:\n\n🦷 Clinical topics — decay, gum care, root canals, implants, whitening, children's dental care\n📦 Store catalog — all products, prices, brands, availability\n📂 Categories — Orthodontics, Endodontics, Restorative, Equipment & more\n🛒 Ordering — how to buy via WhatsApp, payment & delivery\n📍 Contact — phone, email, hours, location\n🌐 Website — navigate pages and find what you need\n\nJust ask naturally — e.g. 'composite resin price' or 'how to prevent gum disease'";
+  }
+
+  // Directions / routing
+  if (/\b(direction|directions|route|routing|navigate|how.*(get|reach|find).*(store|there|you)|turn.by.turn|gps|map)\b/.test(q)) {
+    return "Get directions to Crown Dental Store:\n\n📍 Tap the blue 📍 button at the bottom-right of any page (above WhatsApp)\n🗺️ It uses your current location and opens Google Maps with driving directions to our store in Mansoura, Egypt\n\nOn About & Contact you'll also find a 'Get Directions from My Location' button.\n\nAllow location access when your browser asks for the most accurate route.";
   }
 
   // Contact info

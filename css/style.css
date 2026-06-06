@@ -428,6 +428,9 @@ a:hover {
 
 .hero-content {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-content h1 {
@@ -1297,6 +1300,57 @@ a:hover {
 .footer-home .footer-contact-chip a {
   color: inherit;
   text-decoration: none;
+}
+
+.footer-home .footer-whatsapp-chip {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-social-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  display: inline-block;
+  object-fit: contain;
+}
+
+.footer-contact-chip[data-get-directions] {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+/* Floating Get Directions button */
+.floating-directions {
+  position: fixed;
+  bottom: calc(var(--spacing-lg) + 70px);
+  right: var(--spacing-lg);
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+  z-index: 998;
+  text-decoration: none;
+  border: none;
+}
+
+.floating-directions:hover {
+  transform: scale(1.08);
+  color: white;
+}
+
+[dir="rtl"] .floating-directions {
+  right: auto;
+  left: var(--spacing-lg);
 }
 
 /* Mobile-safe spacing for buttons and content */

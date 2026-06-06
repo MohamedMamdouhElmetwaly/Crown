@@ -280,8 +280,10 @@ const contactInfo = {
   whatsapp: "+201000000000",        // WhatsApp number (with country code) - ADD YOUR WHATSAPP NUMBER
   phone: "+201000000000",           // Phone number - ADD YOUR PHONE NUMBER
   email: "info@crowndentalstore.com",    // Email address - ADD YOUR EMAIL
-  address: "Egypt",       // Physical address - ADD YOUR ADDRESS
-  googleMapsUrl: "https://maps.google.com/?q=crown+dental+store+egypt", // Google Maps link - UPDATE WITH YOUR LOCATION
+  address: "Mansoura, Egypt",       // Physical address - ADD YOUR ADDRESS
+  latitude: 31.052986,              // Store GPS latitude (for directions)
+  longitude: 31.404959,             // Store GPS longitude (for directions)
+  googleMapsUrl: "https://maps.google.com/?q=31.052986,31.404959", // Google Maps link - UPDATE WITH YOUR LOCATION
   
   // GEOLOCATION SETTINGS
   enableGeolocation: true,
