@@ -226,16 +226,17 @@ function initializeLocationRouting() {
     el.addEventListener('click', openDirectionsToStore);
   });
 
-  if (!document.getElementById('floating-directions-btn')) {
-    const btn = document.createElement('button');
-    btn.id = 'floating-directions-btn';
-    btn.className = 'floating-directions';
-    btn.type = 'button';
-    btn.title = 'Get directions to Crown Dental Store';
-    btn.setAttribute('aria-label', 'Get directions to store');
-    btn.innerHTML = '📍';
-    btn.addEventListener('click', openDirectionsToStore);
-    document.body.appendChild(btn);
+  let directionsBtn = document.getElementById('floating-directions-btn');
+  if (!directionsBtn) {
+    directionsBtn = document.createElement('button');
+    directionsBtn.id = 'floating-directions-btn';
+    directionsBtn.className = 'floating-directions';
+    directionsBtn.type = 'button';
+    directionsBtn.title = 'Get directions from your location';
+    directionsBtn.setAttribute('aria-label', 'Get directions to Crown Dental Store');
+    directionsBtn.innerHTML = '<span class="floating-directions-icon" aria-hidden="true">📍</span>';
+    directionsBtn.addEventListener('click', openDirectionsToStore);
+    document.body.appendChild(directionsBtn);
   }
 
   document.querySelectorAll('[data-store-map]').forEach(function(el) {
@@ -286,25 +287,8 @@ function estimateDeliveryTime(governorate) {
    ============================================================= */
 
 function initializeFloatingWhatsApp() {
-  if (!document.getElementById('floating-whatsapp-btn')) {
-    createFloatingWhatsAppButton();
-  }
-}
-
-function createFloatingWhatsAppButton() {
-  const button = document.createElement('a');
-  button.id = 'floating-whatsapp-btn';
-  button.className = 'floating-whatsapp';
-  button.href = '#';
-  button.title = currentLanguage === 'ar' ? 'اتصل بنا عبر واتس آب' : 'Contact us on WhatsApp';
-  button.innerHTML = '<img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" style="width: 32px; height: 32px;">';
-
-  document.body.appendChild(button);
-
-  button.addEventListener('click', function(e) {
-    e.preventDefault();
-    openWhatsApp();
-  });
+  const existing = document.getElementById('floating-whatsapp-btn');
+  if (existing) existing.remove();
 }
 
 function openWhatsApp(message = null) {

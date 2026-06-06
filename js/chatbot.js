@@ -630,7 +630,7 @@ function createChatbotUI() {
       /* Mobile Responsive */
       @media (max-width: 768px) {
         .dental-chatbot-widget {
-          bottom: 76px;
+          bottom: 16px;
           right: 12px;
           left: auto;
         }
@@ -704,14 +704,14 @@ function createChatbotUI() {
 
       @media (max-width: 480px) {
         .dental-chatbot-widget {
-          bottom: 70px;
+          bottom: 14px;
           right: 10px;
         }
 
         .dental-chatbot-window {
           width: calc(100vw - 12px);
           height: min(75vh, 480px);
-          bottom: 130px;
+          bottom: 80px;
           right: 6px;
           left: 6px;
         }
