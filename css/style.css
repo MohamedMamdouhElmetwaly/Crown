@@ -1447,7 +1447,283 @@ a:hover {
   gap: var(--spacing-base);
   justify-content: center;
   flex-wrap: wrap;
-  padding: 0 var(--spacing-base);
+  padding: var(--spacing-base);
+}
+
+/* =============================================================
+   SHOPPING CART PAGE
+   ============================================================= */
+
+.cart-container {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: var(--spacing-2xl);
+  margin-top: var(--spacing-2xl);
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-base);
+  align-items: center;
+}
+
+.cart-item-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--radius-base);
+  background-color: var(--color-bg-light);
+}
+
+.cart-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.cart-item-name {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.cart-item-category {
+  font-size: var(--font-size-sm);
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+.cart-item-price {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.cart-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-base);
+}
+
+.cart-quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.cart-qty-btn {
+  background: white;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.cart-qty-btn:hover {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.cart-qty-input {
+  border: 1px solid var(--color-border);
+  background: white;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-text);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  width: 60px;
+  font-size: var(--font-size-base);
+  border-radius: var(--radius-base);
+}
+
+.cart-item-subtotal {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.btn-remove-item {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-xl);
+  padding: var(--spacing-xs);
+  transition: transform var(--transition-fast);
+}
+
+.btn-remove-item:hover {
+  transform: scale(1.2);
+}
+
+.cart-summary {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-base);
+  padding: var(--spacing-xl);
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.cart-summary h3 {
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text);
+}
+
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-base) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-base);
+}
+
+.cart-summary-total {
+  border-bottom: none;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-top: var(--spacing-base);
+  padding-top: var(--spacing-lg);
+  border-top: 2px solid var(--color-primary);
+}
+
+.empty-cart {
+  margin-top: var(--spacing-3xl);
+}
+
+/* =============================================================
+   FLOATING CART BUTTON
+   ============================================================= */
+
+.floating-cart {
+  position: fixed;
+  bottom: calc(var(--spacing-lg) + 70px);
+  left: var(--spacing-lg);
+  right: auto;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  padding: 0;
+  background: linear-gradient(135deg, #FF6B35, #F7931E);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+  z-index: 9998;
+  text-decoration: none;
+  border: none;
+}
+
+.floating-cart:hover {
+  transform: scale(1.08);
+  color: white;
+  box-shadow: var(--shadow-xl);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--color-danger);
+  color: white;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  border: 2px solid white;
+}
+
+[dir="rtl"] .floating-cart {
+  left: auto;
+  right: var(--spacing-lg);
+}
+
+/* Button icon helper */
+.btn-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+[dir="rtl"] .btn-icon {
+  margin-right: 0;
+  margin-left: 4px;
+}
+
+/* =============================================================
+   FLOATING WHATSAPP BUTTON
+   ============================================================= */
+
+.floating-whatsapp {
+  position: fixed;
+  bottom: calc(var(--spacing-lg) + 140px);
+  left: var(--spacing-lg);
+  right: auto;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  padding: 0;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-base);
+  z-index: 9999;
+  text-decoration: none;
+  border: none;
+}
+
+.floating-whatsapp:hover {
+  transform: scale(1.08);
+  color: white;
+  box-shadow: var(--shadow-xl);
+}
+
+[dir="rtl"] .floating-whatsapp {
+  left: auto;
+  right: var(--spacing-lg);
+}ding: 0 var(--spacing-base);
 }
 
 /* =============================================================

@@ -125,7 +125,7 @@
           <div class="feature-card">
             <div class="feature-icon">📱</div>
             <h3>Easy Communication</h3>
-            <p>Easy contact via phone, WhatsApp and email</p>
+            <p>Easy contact via phone and WhatsApp</p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">🚚</div>
@@ -177,7 +177,7 @@
             <div style="font-size: 40px; margin-bottom: var(--spacing-base);">📞</div>
             <h3>Phone</h3>
             <p style="color: var(--color-text-light); margin: var(--spacing-base) 0;">Call us directly</p>
-            <a href="tel:+201000000000" class="btn btn-primary">+201000000000</a>
+            <button onclick="showCallOptions()" class="btn btn-primary">Call Us</button>
           </div>
 
           <!-- WhatsApp -->
@@ -185,15 +185,15 @@
             <div style="font-size: 40px; margin-bottom: var(--spacing-base);"><img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" style="width: 40px; height: 40px;"></div>
             <h3>WhatsApp</h3>
             <p style="color: var(--color-text-light); margin: var(--spacing-base) 0;">Instant messaging</p>
-            <a href="https://wa.me/201000000000?text=Hello%20I%20would%20like%20to%20inquire%20about%20products" class="btn btn-success" target="_blank">Contact Now</a>
+            <a href="https://wa.me/201028260186?text=Hello%20I%20would%20like%20to%20inquire%20about%20products" class="btn btn-success" target="_blank">Contact Now</a>
           </div>
 
-          <!-- Email -->
+          <!-- Location -->
           <div style="background-color: var(--color-bg-light); padding: var(--spacing-xl); border-radius: var(--radius-lg); text-align: center;">
-            <div style="font-size: 40px; margin-bottom: var(--spacing-base);">✉️</div>
-            <h3>Email</h3>
-            <p style="color: var(--color-text-light); margin: var(--spacing-base) 0;">Send us an email</p>
-            <a href="mailto:info@crowndentalstore.com" class="btn btn-primary">info@crowndentalstore.com</a>
+            <div style="font-size: 40px; margin-bottom: var(--spacing-base);">📍</div>
+            <h3>Location</h3>
+            <p style="color: var(--color-text-light); margin: var(--spacing-base) 0;">Find us on the map</p>
+            <button class="btn btn-primary" data-get-directions>Get Directions</button>
           </div>
         </div>
 
@@ -214,11 +214,6 @@
               </div>
 
               <div class="form-group">
-                <label for="contact-email">Email Address *</label>
-                <input type="email" id="contact-email" name="email" required>
-              </div>
-
-              <div class="form-group">
                 <label for="contact-subject">Subject</label>
                 <select id="contact-subject" name="subject">
                   <option value="">Choose a subject</option>
@@ -234,7 +229,9 @@
                 <textarea id="contact-message" name="message" required></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Send Message</button>
+              <button type="submit" class="btn btn-success btn-lg" style="width: 100%;">
+                <img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" class="btn-icon"> Send via WhatsApp
+              </button>
             </form>
           </div>
 
@@ -262,13 +259,12 @@
 
               <div style="padding-top: var(--spacing-lg); border-top: 1px solid var(--color-border);">
                 <h3 style="color: var(--color-primary); margin-bottom: var(--spacing-base);">📞 Quick Contact</h3>
-                <div class="footer-contact" style="margin-bottom: var(--spacing-base);">
-                  <span>☎️</span>
-                  <a href="tel:+201000000000" dir="ltr">+201000000000</a>
+                <div style="margin-bottom: var(--spacing-base);">
+                  <button onclick="showCallOptions()" class="btn btn-outline btn-sm">Call Us</button>
                 </div>
                 <div class="footer-contact">
                   <span>💬</span>
-                  <span>Same number on WhatsApp</span>
+                  <a href="https://wa.me/201028260186?text=Hello" target="_blank">WhatsApp: +20 102 826 0186</a>
                 </div>
               </div>
             </div>
@@ -329,6 +325,7 @@
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
   <script src="js/search-enhanced.js"></script>
   <script src="js/chatbot.js"></script>
 </body>

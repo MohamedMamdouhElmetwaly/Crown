@@ -106,10 +106,13 @@ function renderProductDetails(product) {
       </div>
 
       <div class="product-actions">
+        <button class="btn btn-secondary btn-lg" onclick="addProductToCartFromDetails(${product.id})" style="display: flex; align-items: center; justify-content: center; gap: var(--spacing-sm);">
+          🛒 Add to Cart
+        </button>
         <button class="btn btn-success btn-lg" onclick="orderNow('${productName}', ${product.price}, '${product.currency}')" style="display: flex; align-items: center; justify-content: center; gap: var(--spacing-sm);">
           <img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" style="width: 20px; height: 20px;"> Order on WhatsApp
         </button>
-        <a href="tel:${contactInfo.phone.replace(/[\s-]/g, '')}" class="btn btn-primary btn-lg">
+        <a href="tel:${contactInfo.phone1.replace(/[\s-]/g, '')}" class="btn btn-primary btn-lg">
           📞 Call Us
         </a>
       </div>
@@ -284,6 +287,62 @@ function shareProduct(platform) {
   }
 
   window.open(url, '_blank', 'width=600,height=400');
+}
+
+/* =============================================================
+   ADD TO CART FROM DETAILS PAGE
+   ============================================================= */
+
+function addProductToCartFromDetails(productId) {
+  const quantity = parseInt(document.getElementById('product-quantity')?.value || 1);
+  
+  // Get product from products array
+  const product = products.find(p => p.id === productId);
+  if (!product) {
+    showNotification('Product not found', 'error');
+    return;
+  }
+
+  // Get cart from localStorage
+  let cart = [];
+  try {
+    const cartData = localStorage.getItem('dentalStoreCart');
+    cart = cartData ? JSON.parse(cartData) : [];
+  } catch (e) {
+    console.error('Error reading cart:', e);
+    cart = [];
+  }
+
+  // Check if product already in cart
+  const existingItem = cart.find(item => item.id === productId);
+  
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      currency: product.currency,
+      image: product.image,
+      category: product.category,
+      quantity: quantity
+    });
+  }
+
+  // Save cart
+  try {
+    localStorage.setItem('dentalStoreCart', JSON.stringify(cart));
+    showNotification(`${quantity} × ${product.name} added to cart!`, 'success');
+    
+    // Update cart icon badge
+    if (typeof updateCartIcon === 'function') {
+      updateCartIcon();
+    }
+  } catch (e) {
+    console.error('Error saving cart:', e);
+    showNotification('Error adding to cart', 'error');
+  }
 }
 
 // Export for use

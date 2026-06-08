@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Browse all dental tools and supplies from Crown Dental Store - Advanced filtering and product search">
-  <title>Products - Crown Dental Store</title>
+  <meta name="description" content="Shopping Cart - Crown Dental Store">
+  <title>Shopping Cart - Crown Dental Store</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
 
       <ul class="navbar-nav" id="navbar-nav">
         <li><a href="index.html">Home</a></li>
-        <li><a href="products.html" class="active">Products</a></li>
+        <li><a href="products.html">Products</a></li>
         <li><a href="categories.html">Categories</a></li>
         <li><a href="about-contact.html">About & Contact</a></li>
       </ul>
@@ -42,53 +42,55 @@
       <!-- BREADCRUMB -->
       <ol class="breadcrumb">
         <li><a href="index.html">Home</a></li>
-        <li>Products</li>
+        <li>Shopping Cart</li>
       </ol>
 
       <!-- PAGE TITLE -->
-      <div style="margin-bottom: var(--spacing-2xl);">
-        <h1>All Products</h1>
-        <p id="result-count" style="color: var(--color-text-light);">Loading products...</p>
+      <div style="margin-bottom: var(--spacing-2xl); text-align: center;">
+        <h1>🛒 Shopping Cart</h1>
+        <p id="cart-item-count" style="color: var(--color-text-light); font-size: var(--font-size-lg);">Loading cart...</p>
       </div>
 
-      <!-- FILTERS AND SEARCH -->
-      <div class="controls">
-        <input type="text" id="search-input" placeholder="Search products or name..." style="flex: 1; max-width: 300px;">
-        <button id="search-button" class="btn btn-primary">Search</button>
+      <!-- CART CONTENT -->
+      <div class="cart-container">
+        <!-- CART ITEMS -->
+        <div class="cart-items" id="cart-items">
+          <!-- Cart items will be populated by JavaScript -->
+        </div>
 
-        <select id="category-filter" class="btn btn-outline">
-          <option value="">All Categories</option>
-        </select>
-
-        <select id="sort-filter" class="btn btn-outline">
-          <option value="default">Default Sort</option>
-          <option value="name">Product Name (A-Z)</option>
-          <option value="price-low">Price (Lowest First)</option>
-          <option value="price-high">Price (Highest First)</option>
-          <option value="newest">Newest First</option>
-        </select>
-
-        <button id="clear-filters" class="btn btn-outline">Clear Filters</button>
-      </div>
-
-      <!-- PRODUCTS GRID -->
-      <div class="products-grid" id="products-container">
-        <div style="text-align: center; grid-column: 1/-1; padding: var(--spacing-2xl);">
-          <div class="spinner"></div>
-          <p>Loading products...</p>
+        <!-- CART SUMMARY -->
+        <div class="cart-summary" id="cart-summary">
+          <h3>Order Summary</h3>
+          <div class="cart-summary-row">
+            <span>Subtotal:</span>
+            <span id="cart-subtotal">0 EGP</span>
+          </div>
+          <div class="cart-summary-row cart-summary-total">
+            <span>Total:</span>
+            <span id="cart-total">0 EGP</span>
+          </div>
+          <button id="order-now-btn" class="btn btn-success btn-lg btn-block" onclick="orderNow()">
+            <img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" class="btn-icon"> Order Now via WhatsApp
+          </button>
+          <a href="products.html" class="btn btn-outline btn-block" style="margin-top: var(--spacing-base);">Continue Shopping</a>
         </div>
       </div>
 
-      <!-- PAGINATION -->
-      <ul class="pagination" id="pagination"></ul>
+      <!-- EMPTY CART STATE -->
+      <div class="empty-cart" id="empty-cart" style="display: none;">
+        <div class="empty-state">
+          <div class="empty-state-icon">🛒</div>
+          <h2>Your Cart is Empty</h2>
+          <p>Add some products to your cart to get started!</p>
+          <a href="products.html" class="btn btn-primary btn-lg">Browse Products</a>
+        </div>
+      </div>
     </div>
   </div>
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
   <script src="js/cart.js"></script>
-  <script src="js/search-enhanced.js"></script>
-  <script src="js/products.js"></script>
   <script src="js/chatbot.js"></script>
 </body>
 </html>

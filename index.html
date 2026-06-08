@@ -143,11 +143,11 @@
   <!-- CTA SECTION -->
   <section class="section container" style="text-align: center;">
     <h2>Have Questions or Need Information?</h2>
-    <p style="font-size: var(--font-size-lg); margin: var(--spacing-lg) 0;">Contact us via phone, WhatsApp, or email</p>
+    <p style="font-size: var(--font-size-lg); margin: var(--spacing-lg) 0;">Contact us via phone or WhatsApp</p>
     <div class="cta-buttons">
-      <a href="tel:+201000000000" class="btn btn-primary btn-lg">📞 Call Us</a>
-      <a href="https://wa.me/201000000000?text=Hello" class="btn btn-success btn-lg"><img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" class="btn-icon"> WhatsApp</a>
-      <a href="about-contact.html" class="btn btn-outline btn-lg">✉️ Contact Us</a>
+      <button onclick="showCallOptions()" class="btn btn-primary btn-lg">📞 Call Us</button>
+      <a href="https://wa.me/201028260186?text=Hello" class="btn btn-success btn-lg"><img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" class="btn-icon"> WhatsApp</a>
+      <a href="about-contact.html" class="btn btn-outline btn-lg">ℹ️ About & Contact</a>
     </div>
   </section>
 
@@ -172,11 +172,10 @@
       <div class="footer-section">
         <h3>Contact</h3>
         <div class="footer-contact-row">
-          <span class="footer-contact-chip">📞 <a href="tel:+201000000000">+201000000000</a></span>
-          <a href="https://wa.me/201000000000?text=Hello" class="footer-contact-chip footer-whatsapp-chip" target="_blank" rel="noopener noreferrer">
+          <button onclick="showCallOptions()" class="footer-contact-chip" style="cursor: pointer; border: none; font-family: inherit;">📞 Call Us</button>
+          <a href="https://wa.me/201028260186?text=Hello" class="footer-contact-chip footer-whatsapp-chip" target="_blank" rel="noopener noreferrer">
             <img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" class="footer-social-icon"> WhatsApp
           </a>
-          <span class="footer-contact-chip">✉️ info@crowndentalstore.com</span>
           <a href="#" class="footer-contact-chip footer-location-chip" data-get-directions>📍 Mansoura - Egypt</a>
         </div>
       </div>
@@ -192,6 +191,7 @@
   <!-- JavaScript Files -->
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
   <script src="js/search-enhanced.js"></script>
   <script src="js/chatbot.js"></script>
   <script>

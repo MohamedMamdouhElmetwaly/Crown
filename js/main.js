@@ -38,6 +38,7 @@ let currentLanguage = 'en';
 document.addEventListener('DOMContentLoaded', function() {
   initializeNavbar();
   initializeFloatingWhatsApp();
+  initializeFloatingCart();
   initializeLocationRouting();
   setActiveNavLink();
   initializeMobileMenu();
@@ -402,9 +403,57 @@ function estimateDeliveryTime(governorate) {
    FLOATING WHATSAPP BUTTON
    ============================================================= */
 
+/* =============================================================
+   FLOATING CART BUTTON
+   ============================================================= */
+
+function initializeFloatingCart() {
+  const existing = document.getElementById('floating-cart-btn');
+  if (existing) {
+    // Update badge count
+    if (typeof updateCartIcon === 'function') {
+      updateCartIcon();
+    }
+    return;
+  }
+
+  // Create floating cart button
+  const cartBtn = document.createElement('a');
+  cartBtn.id = 'floating-cart-btn';
+  cartBtn.className = 'floating-cart';
+  cartBtn.href = 'cart.html';
+  cartBtn.title = 'View Shopping Cart';
+  cartBtn.setAttribute('aria-label', 'Shopping Cart');
+  cartBtn.innerHTML = '🛒';
+  
+  document.body.appendChild(cartBtn);
+  
+  // Update badge count
+  if (typeof updateCartIcon === 'function') {
+    updateCartIcon();
+  }
+}
+
+/* =============================================================
+   FLOATING WHATSAPP BUTTON
+   ============================================================= */
+
 function initializeFloatingWhatsApp() {
   const existing = document.getElementById('floating-whatsapp-btn');
   if (existing) existing.remove();
+
+  // Create floating WhatsApp button above location button
+  const whatsappBtn = document.createElement('a');
+  whatsappBtn.id = 'floating-whatsapp-btn';
+  whatsappBtn.className = 'floating-whatsapp';
+  whatsappBtn.href = 'https://wa.me/201028260186?text=Hello%2C%20I%20would%20like%20to%20inquire%20about%20your%20products';
+  whatsappBtn.target = '_blank';
+  whatsappBtn.rel = 'noopener noreferrer';
+  whatsappBtn.title = 'Contact us on WhatsApp';
+  whatsappBtn.setAttribute('aria-label', 'WhatsApp Contact');
+  whatsappBtn.innerHTML = '<img src="images/social/whatsapp_style_icon.svg" alt="WhatsApp" style="width: 28px; height: 28px;">';
+  
+  document.body.appendChild(whatsappBtn);
 }
 
 function openWhatsApp(message = null) {
@@ -425,6 +474,30 @@ function openWhatsApp(message = null) {
   // Open WhatsApp
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
   window.open(whatsappUrl, '_blank');
+}
+
+/* =============================================================
+   CALL US - MULTIPLE PHONE NUMBERS
+   ============================================================= */
+
+function showCallOptions() {
+  const phones = [
+    { number: contactInfo.phone1, label: 'Primary' },
+    { number: contactInfo.phone2, label: 'Secondary 1' },
+    { number: contactInfo.phone3, label: 'Secondary 2' }
+  ];
+  
+  let message = 'Choose a phone number to call:\n\n';
+  phones.forEach((phone, index) => {
+    message += `${index + 1}. ${phone.label}: ${phone.number}\n`;
+  });
+  
+  const choice = prompt(message + '\nEnter 1, 2, or 3:');
+  
+  if (choice === '1' || choice === '2' || choice === '3') {
+    const selectedPhone = phones[parseInt(choice) - 1];
+    window.location.href = `tel:${selectedPhone.number}`;
+  }
 }
 
 /* =============================================================
@@ -496,7 +569,6 @@ function getCategoryName(category) {
 function createProductCard(product) {
   const productName = getProductName(product);
   const categoryName = product.category; // Categories are English
-  const whatsappMessage = `Product: ${productName}\nSKU: ${product.sku}\nPrice: ${product.price} ${product.currency}\nI'm interested in this product.`;
 
   const availabilityClass = `card-availability ${product.availability}`;
   const availabilityText = getText(
@@ -524,13 +596,70 @@ function createProductCard(product) {
           <a href="product-details.html?id=${product.id}" class="btn btn-primary btn-sm" style="flex: 1; text-align: center;">
             ${getText('عرض التفاصيل', 'View Details')}
           </a>
-          <button class="btn btn-secondary btn-sm" onclick="orderProduct('${productName}', '${product.sku}', ${product.price}, '${product.currency}', this)" style="flex: 1;">
-            ${getText('اطلب الآن', 'Order Now')}
+          <button class="btn btn-secondary btn-sm" onclick="addProductToCart(${product.id}, this)" style="flex: 1;">
+            ${getText('أضف للسلة', 'Add to Cart')}
           </button>
         </div>
       </div>
     </div>
   `;
+}
+
+// Add product to cart from product card
+function addProductToCart(productId, button) {
+  const card = button.closest('.card');
+  const quantityInput = card ? card.querySelector('.qty-input') : null;
+  const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+  
+  // Get product from products array
+  const product = products.find(p => p.id === productId);
+  if (!product) {
+    showNotification('Product not found', 'error');
+    return;
+  }
+
+  // Get cart from localStorage
+  let cart = [];
+  try {
+    const cartData = localStorage.getItem('dentalStoreCart');
+    cart = cartData ? JSON.parse(cartData) : [];
+  } catch (e) {
+    console.error('Error reading cart:', e);
+    cart = [];
+  }
+
+  // Check if product already in cart
+  const existingItem = cart.find(item => item.id === productId);
+  
+  if (existingItem) {
+    existingItem.quantity += quantity;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      currency: product.currency,
+      image: product.image,
+      category: product.category,
+      quantity: quantity
+    });
+  }
+
+  // Save cart
+  try {
+    localStorage.setItem('dentalStoreCart', JSON.stringify(cart));
+    showNotification(`${product.name} added to cart!`, 'success');
+    
+    // Update cart icon badge
+    if (typeof updateCartIcon === 'function') {
+      updateCartIcon();
+    }
+    
+    // Don't redirect - user will navigate via cart icon
+  } catch (e) {
+    console.error('Error saving cart:', e);
+    showNotification('Error adding to cart', 'error');
+  }
 }
 
 // Contact via WhatsApp with product info
@@ -664,7 +793,7 @@ function setupContactForm() {
     const data = Object.fromEntries(formData);
 
     // Validate form
-    if (!data.name || !data.email || !data.message) {
+    if (!data.name || !data.phone || !data.message) {
       showNotification(
         getText('يرجى ملء جميع الحقول المطلوبة', 'Please fill in all required fields'),
         'error'
@@ -672,12 +801,25 @@ function setupContactForm() {
       return;
     }
 
-    // In a real application, you would send this to a backend
-    console.log('Form Data:', data);
+    // Build WhatsApp message
+    let message = `*Contact Form Submission*\n\n`;
+    message += `Name: ${data.name}\n`;
+    message += `Phone: ${data.phone}\n`;
+    if (data.subject) {
+      message += `Subject: ${data.subject}\n`;
+    }
+    message += `\nMessage:\n${data.message}`;
+
+    // Send to WhatsApp
+    const whatsappNumber = '201028260186';
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
 
     // Show success message
     showNotification(
-      getText('تم إرسال رسالتك بنجاح. سنتواصل معك قريباً', 'Your message has been sent successfully. We will contact you soon.'),
+      getText('سيتم فتح واتساب لإرسال رسالتك', 'Opening WhatsApp to send your message'),
       'success'
     );
 
